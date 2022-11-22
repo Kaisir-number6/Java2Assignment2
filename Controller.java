@@ -34,25 +34,32 @@ public class Controller implements Initializable {
         game_panel.setOnMouseClicked(event -> {
             int x = (int) (event.getX() / BOUND);
             int y = (int) (event.getY() / BOUND);
+            win();
             if (refreshBoard(x, y)) {
                 TURN = !TURN;
-            }
-            win();
-            if (win()!=0)
-            {
-                if(win()==PLAY_1){
-                System.out.println("Player_1 win");}
-                if (win()==PLAY_2)
+                if (win()!=0)
                 {
-                    System.out.println("Player_2 win");
+                    if(win()==PLAY_2){
+                        System.out.println("Player_1 win");}
+                    if (win()==PLAY_1)
+                    {
+                        System.out.println("Player_2 win");
+                    }
+                    if(win()==3)
+                    {
+                        System.out.println("End in a draw");
+                    }
+
                 }
             }
+
+
         });
 
     }
 
     private boolean refreshBoard (int x, int y) {
-        if (chessBoard[x][y] == EMPTY) {
+        if (chessBoard[x][y] == EMPTY&&win()==0) {
             chessBoard[x][y] = TURN ? PLAY_1 : PLAY_2;
             drawChess();
             return true;
@@ -121,7 +128,9 @@ public class Controller implements Initializable {
         for(int x=0;x<3;x++)
         {
             if (chessBoard[x][0]==chessBoard[x][1]&&chessBoard[x][1]==chessBoard[x][2]&&chessBoard[x][1]!=0)
-            {return chessBoard[x][1];}
+            {
+                return chessBoard[x][1];
+            }
 
         }
         for (int y=0;y<3;y++)
@@ -139,6 +148,17 @@ public class Controller implements Initializable {
         {
             return chessBoard[1][1];
         }
-        return 0;
+
+       for(int x=0;x<3;x++)
+       {
+           for (int y=0;y<3;y++)
+           {
+               if(chessBoard[x][y]==0)
+               {
+                   return 0;
+               }
+           }
+       }
+        return 3;
     }
 }
