@@ -123,7 +123,7 @@ public class Controller implements Initializable {
 
     //判定胜负
 
-    private int win()
+    public static int win()
     {
         for(int x=0;x<3;x++)
         {
